@@ -1,0 +1,74 @@
+<h2>Component Cotxes</h2>
+
+<h3>Tenim cotxes de les següents cases:</h3>
+<!-- New Way -->
+<ul>
+    @for (cotxe of cotxes; track $index) {
+        <li>
+            {{ $index }} - {{ cotxe.marca }}
+        </li>
+    }
+</ul>
+
+<!-- Old Way -->
+<!-- <ul>
+    <li *ngFor="let cotxe of cotxes; let i = index">
+        {{ i }} - {{ cotxe.marca }}
+    </li>
+</ul> -->
+
+<h3>Llista de cotxes</h3>
+<ul>
+    @for (cotxe of cotxes; track $index) {
+    <li 
+        [ngStyle]="cotxe.correComUnLlamp 
+            ? {'font-weight': 'bold', 'background-color': 'red'} 
+            : {}"
+    >
+        {{ cotxe.model }} - <b>{{ cotxe.preu }}€</b> -
+
+        <!-- New way -->
+        @switch (cotxe.combustible) {
+            @case ('hybrid') { <span style="color: green;">Combustible: {{ cotxe.combustible }}</span> }
+            @case ('electric') { <span style="color: green;">Combustible: {{ cotxe.combustible }}</span> }
+            @case ('gasolina') { <span style="color: blue;">Combustible: {{ cotxe.combustible }}</span> }
+            @case ('gas') { <span style="color: blue;">Combustible: {{ cotxe.combustible }}</span> }
+            @case ('diesel') { <span style="color: brown;">Combustible: {{ cotxe.combustible }}</span> }
+            @default { <span>Combustible: {{ cotxe.combustible }}</span> }
+        }
+
+        <!-- old Way -->
+        <!-- <span [ngSwitch]="cotxe.combustible">
+            <span *ngSwitchCase="'hybrid'" style="color: green;">Combustible: {{ cotxe.combustible }}</span>
+            <span *ngSwitchCase="'electric'" style="color: green;">Combustible: {{ cotxe.combustible }}</span>
+            <span *ngSwitchCase="'gasolina'" style="color: blue;">Combustible: {{ cotxe.combustible }}</span>
+            <span *ngSwitchCase="'gas'" style="color: blue;">Combustible: {{ cotxe.combustible }}</span>
+            <span *ngSwitchCase="'diesel'" style="color: brown;">Combustible: {{ cotxe.combustible }}</span>
+            <span *ngSwitchDefault>Combustible: {{ cotxe.combustible }}</span>
+        </span> -->
+
+        <button (click)="eliminarCotxe($index)">Eliminar</button>
+    </li>
+    }
+</ul>
+
+<h4>Afegeix un cotxe nou</h4>
+<form (ngSubmit)="addCotxe()">
+
+    <span>Model: </span><input type="text" placeholder="Model" [(ngModel)]="newModel" name="model" required>
+    <br><span>Marca: </span><input type="text" placeholder="Marca" [(ngModel)]="newMarca" name="marca" required>
+    <br><span>Preu: </span><input type="text" placeholder="Preu" [(ngModel)]="newPreu" name="preu" required>
+    <br><span>Color: </span><input type="text" placeholder="Color" [(ngModel)]="newColor" name="color" required>
+    <br><span>Velocitat: </span><input type="text" placeholder="Velocitat" [(ngModel)]="newVelocitat" name="velocitat" required>
+
+    <br><span>Tipus de Combustible: </span><select [(ngModel)]="newCombustible" name="combustible" required>
+        <option value="" disabled selected>Tria Combustible</option>
+        <option value="gasolina">Gasolina</option>
+        <option value="gas">Gas</option>
+        <option value="diesel">Diesel</option>
+        <option value="electric">Electric</option>
+        <option value="hybrid">Hybrid</option>
+    </select>
+
+    <br><button type="submit">Afegeix Cotxe</button>
+</form>
