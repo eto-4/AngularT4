@@ -19,7 +19,9 @@ import { HttpParams } from '@angular/common/http';
 export class CotxesComponent {
 
   constructor(private route: ActivatedRoute, private router: Router) {
+
     // llegir paràmetres que venen de URL
+    // Exemple: /cotxes?model=Golf&marca=VW&preu=20000&color=blau&velocitat=150&combustible=gasolina
     this.route.queryParams.subscribe(params => {
       if (params['model'] && params ['marca']) {
         const cotxe = new Cotxe(
