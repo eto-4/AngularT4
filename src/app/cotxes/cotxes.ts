@@ -3,7 +3,7 @@ import { Cotxe } from '../models/Cotxe';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
+import { CotxeService } from '../service/cotxe.service';
 
 
 @Component({
@@ -15,11 +15,19 @@ import { HttpParams } from '@angular/common/http';
   ],
   templateUrl: './cotxes.html',
   styleUrl: './cotxes.css',
+
+  // Proveïdor (CotxeService)
+  providers: [CotxeService]
 })
 export class CotxesComponent {
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router,
+    private _cotxeService: CotxeService
+  ) {}
 
+  ngOnInit() {
     // llegir paràmetres que venen de URL
     // Exemple: /cotxes?model=Golf&marca=VW&preu=20000&color=blau&velocitat=150&combustible=gasolina
     this.route.queryParams.subscribe(params => {
@@ -32,11 +40,11 @@ export class CotxesComponent {
           +params['velocitat'] || 0,
           params['combustible'] ||'desconegut'
         );
-        this.cotxes.push(cotxe);
+        this._cotxeService.addCotxe(cotxe);
       }
     });
   }
-
+  
   // Propietats que estarán enllaçades al form.
   newModel: string = '';
   newMarca: string = '';
@@ -44,13 +52,6 @@ export class CotxesComponent {
   newColor: string = '';
   newVelocitat: number = 0;
   newCombustible: string = '';
-
-  cotxes: Array<Cotxe> = [
-    new Cotxe('Model S', 'Tesla', 125000 ,'negre', 120, 'electric'),
-    new Cotxe('Civic', 'Honda', 250000 ,'blanc', 180, 'gasolina'),
-    new Cotxe('Clio', 'Renault', 500000 ,'vermell', 140, 'diesel'),
-    new Cotxe('Prius', 'Toyota', 250000 ,'gris', 250, 'hybrid')
-  ]
 
   addCotxe() {
     // Crear un nou cotxe fent servir el model
