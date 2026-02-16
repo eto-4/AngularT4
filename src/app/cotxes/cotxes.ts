@@ -17,9 +17,10 @@ import { CotxeService } from '../service/cotxe.service';
   styleUrl: './cotxes.css',
 
   // Proveïdor (CotxeService)
-  providers: [CotxeService]
+  // providers: [CotxeService],
 })
 export class CotxesComponent {
+  cotxes: Array<Cotxe> = [];
 
   constructor(
     private route: ActivatedRoute, 
@@ -28,10 +29,13 @@ export class CotxesComponent {
   ) {}
 
   ngOnInit() {
+    // Carregar des del servei
+    this.cotxes = this._cotxeService.getCotxes();
+
     // llegir paràmetres que venen de URL
     // Exemple: /cotxes?model=Golf&marca=VW&preu=20000&color=blau&velocitat=150&combustible=gasolina
     this.route.queryParams.subscribe(params => {
-      if (params['model'] && params ['marca']) {
+      if (params['model'] && params['marca']) {
         const cotxe = new Cotxe(
           params['model'],
           params['marca'],
@@ -40,6 +44,7 @@ export class CotxesComponent {
           +params['velocitat'] || 0,
           params['combustible'] ||'desconegut'
         );
+
         this._cotxeService.addCotxe(cotxe);
       }
     });
@@ -65,7 +70,7 @@ export class CotxesComponent {
     );
 
     // Afegir cotxe a cotxes
-    this.cotxes.push(cotxe);
+    this._cotxeService.addCotxe(cotxe);
 
     // reiniciar el form
     this.newModel = '';
@@ -76,6 +81,6 @@ export class CotxesComponent {
   }
 
   eliminarCotxe(index: number) {
-    this.cotxes.splice(index, 1);
+    this._cotxeService.deleteCotxe(index);
   }
 }
