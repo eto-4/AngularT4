@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>Informació del País</h2>
+
+  <!-- SELECT -->
+  <label>Selecciona un país:</label>
+  <select [(ngModel)]="paisSeleccionat" (change)="onSelectChange()">
+    <option value="">-- Tria un país --</option>
+    <option *ngFor="let p of paisosSelect" [value]="p">{{ p }}</option>
+  </select>
+
+  <!-- INPUT -->
+  <div>
+    <label>O escriu el nom del país:</label>
+    <input type="text" [(ngModel)]="paisInput" placeholder="Ex: Italy" />
+    <button (click)="onInputBuscar()">Buscar</button>
+  </div>
+
+  <!-- ERROR -->
+  <p class="error" *ngIf="error">País incorrecte</p>
+
+  <!-- DADES -->
+  <div class="dades" *ngIf="dades">
+    <img [src]="dades.flags.svg" [alt]="dades.name.common" width="100" />
+    <p><strong>Capital:</strong> {{ dades.capital?.[0] }}</p>
+    <p><strong>Àrea:</strong> {{ dades.area | number }} km²</p>
+    <p><strong>Població:</strong> {{ dades.population | number }}</p>
+    <p><strong>Idioma:</strong> {{ getIdiomes(dades.languages) }}</p>
+  </div>
+</div>
