@@ -1,0 +1,28 @@
+.container {
+  max-width: 500px;
+  margin: 2rem auto;
+  font-family: sans-serif;
+}
+
+select, input {
+  margin: 0.5rem 0;
+  padding: 0.4rem;
+  width: 100%;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.dades {
+  margin-top: 1rem;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+img {
+  display: block;
+  margin-bottom: 1rem;
+}

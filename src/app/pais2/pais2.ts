@@ -7,8 +7,8 @@ import { PaisService } from './service/pais2.service';
   selector: 'app-pais',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './pais.html',
-  styleUrls: ['./pais.css']
+  templateUrl: './pais2.html',
+  styleUrls: ['./pais2.css']
 })
 export class Pais2Component implements OnInit {
   paisosSelect = ['Spain', 'France', 'Japan', 'Brazil', 'Germany'];
