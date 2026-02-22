@@ -10,7 +10,7 @@ import { PaisService } from './service/pais2.service';
   templateUrl: './pais.html',
   styleUrls: ['./pais.css']
 })
-export class PaisComponent implements OnInit {
+export class Pais2Component implements OnInit {
   paisosSelect = ['Spain', 'France', 'Japan', 'Brazil', 'Germany'];
 
   paisSeleccionat: string = '';
